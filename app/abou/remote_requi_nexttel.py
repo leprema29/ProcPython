@@ -102,7 +102,7 @@ class RemoteRequiNEXTTEL:
     def _read_listing(self, base_remote, base_local, numero):
         try:
             content = sftp_read_file(self.host, self.user, self.password,
-                                     f"{base_remote}/listing_final")
+                                     f"{base_remote}/appelemis.txt")
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
