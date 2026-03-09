@@ -255,7 +255,8 @@ class PDFGenerator:
 
         # Demandeur
         if self.demandeur_requisition:
-            elements.append(Paragraph(self.demandeur_requisition, FONT_TITRE_DEMANDEUR))
+            elements.append(Paragraph(
+                f"Service Demandeur: {self.demandeur_requisition}", FONT_TITRE_DEMANDEUR))
 
         elements.append(Spacer(1, 5 * mm))
 
@@ -462,7 +463,8 @@ class PDFGenerator:
             section_num += 1
             elements.append(Paragraph(
                 f"{_roman(section_num)}. Fréquence par cellule", FONT_TITRE_PARTIE))
-            headers = ["Total", "Cellule", "0h-2h", "2h-4h", "4h-6h", "6h-8h",
+            headers = ["Total", "Cellule", "Region", "Latitude", "Longitude",
+                       "0h-2h", "2h-4h", "4h-6h", "6h-8h",
                        "8h-10h", "10h-12h", "12h-14h", "14h-16h", "16h-18h",
                        "18h-20h", "20h-22h", "22h-24h"]
             elements.append(_build_data_table(headers, freq_cell_rows[1:]))
@@ -475,6 +477,7 @@ class PDFGenerator:
             elements.append(Paragraph(
                 f"{_roman(section_num)}. Fréquence par correspondant", FONT_TITRE_PARTIE))
             headers = ["Total", "Entrant", "Sortant", "Téléphone", "Identité",
+                       "Date Naiss.", "CNI", "Date Exp.", "Quartier",
                        "0h-2h", "2h-4h", "4h-6h", "6h-8h", "8h-10h",
                        "10h-12h", "12h-14h", "14h-16h", "16h-18h", "18h-20h",
                        "20h-22h", "22h-24h"]
@@ -487,11 +490,9 @@ class PDFGenerator:
             section_num += 1
             elements.append(Paragraph(
                 f"{_roman(section_num)}. Fréquence par durée d'appel", FONT_TITRE_PARTIE))
-            headers = ["N°", "Durée", "Occurence", "Pourcentage"]
-            numbered_rows = []
-            for i, row in enumerate(freq_duree_rows[1:]):
-                numbered_rows.append([str(i + 1)] + row)
-            elements.append(_build_data_table(headers, numbered_rows))
+            headers = ["Numero", "Identité", "Date Naiss.", "CNI",
+                       "Date Exp.", "Quartier", "Durée Appel", "Nb Messages"]
+            elements.append(_build_data_table(headers, freq_duree_rows[1:]))
             elements.append(Spacer(1, 5 * mm))
 
         freq_imei_csv = self._csv_path(f"frequenceImei_{self.phone}.csv")

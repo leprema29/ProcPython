@@ -2,6 +2,7 @@ import os
 import csv
 from app.metier.variables import Variables
 from app.abou.ssh_utils import execute_remote_command, sftp_read_file, sftp_download_file
+from app.abou.data_utils import clean_null, clean_phone
 from app.abou.csv.format.entities import (
     Listing, IdentificationMTN, StatistiqueAppels, StatistiqueLieux,
     FreqCell, FreqCorrespondant, FreqDureeAppel, FreqImei, SharedImei
@@ -103,12 +104,12 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
-                    if len(parts) >= 7:
+                    parts = [clean_null(p) for p in line.split(',')]
+                    if len(parts) >= 6:
                         item = IdentificationMTN(
-                            numero=parts[0], nom_prenom=parts[1], date_naissance=parts[2],
-                            numero_cni=parts[3], date_exp_cni=parts[4],
-                            quartier=parts[5], nationalite=parts[6]
+                            numero=clean_phone(parts[0]), numero_cni=parts[1], nom_prenom=parts[2],
+                            date_naissance=parts[3], date_exp_cni=parts[4],
+                            quartier=parts[5], nationalite=parts[6] if len(parts) > 6 else ""
                         )
                         data_list.append(item)
             csv_path = os.path.join(base_local, f"Requisition_IdNumero_{numero}.csv")
@@ -123,13 +124,13 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 5:
                         item = Listing(
                             date_debut_appel=parts[0],
                             duree_appel=parts[1],
-                            numero_appelant=parts[2],
-                            numero_appele=parts[3],
+                            numero_appelant=clean_phone(parts[2]),
+                            numero_appele=clean_phone(parts[3]),
                             localisation_numero_appelant=parts[4],
                             imei_numero_appelant=parts[9] if len(parts) > 9 else ""
                         )
@@ -146,10 +147,10 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 6:
                         item = IdentificationMTN(
-                            numero=parts[0], numero_cni=parts[1], nom_prenom=parts[2],
+                            numero=clean_phone(parts[0]), numero_cni=parts[1], nom_prenom=parts[2],
                             date_naissance=parts[3], date_exp_cni=parts[4],
                             quartier=parts[5], nationalite=parts[6] if len(parts) > 6 else ""
                         )
@@ -166,10 +167,10 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 3:
                         item = StatistiqueAppels(
-                            numero_appelant=parts[0],
+                            numero_appelant=clean_phone(parts[0]),
                             occurence=int(parts[1]) if parts[1].isdigit() else 0,
                             duree_appel=parts[2]
                         )
@@ -186,7 +187,7 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 2:
                         item = StatistiqueLieux(
                             localisation=parts[0],
@@ -205,7 +206,7 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 17:
                         item = FreqCell(
                             total=parts[0], cellule=parts[1],
@@ -230,11 +231,11 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 21:
                         item = FreqCorrespondant(
                             total=parts[0], total_entrant=parts[1], total_sortant=parts[2],
-                            telephone=parts[3], identite=parts[4],
+                            telephone=clean_phone(parts[3]), identite=parts[4],
                             date_naissance=parts[5], numero_cni=parts[6],
                             date_exp_cni=parts[7], quartier=parts[8],
                             zero_deux=parts[9], deux_quatre=parts[10],
@@ -257,10 +258,10 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 8:
                         item = FreqDureeAppel(
-                            numero=parts[0], identite=parts[1],
+                            numero=clean_phone(parts[0]), identite=parts[1],
                             date_naissance=parts[2], numero_cni=parts[3],
                             date_exp_cni=parts[4], quartier=parts[5],
                             duree_appel=parts[6], nombre_message=parts[7]
@@ -278,7 +279,7 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 4:
                         item = FreqImei(
                             total=parts[0], imei=parts[1],
@@ -297,10 +298,10 @@ class RemoteRequiMTN:
             data_list = []
             for line in content.strip().split('\n'):
                 if line.strip():
-                    parts = line.split(',')
+                    parts = [clean_null(p) for p in line.split(',')]
                     if len(parts) >= 6:
                         item = SharedImei(
-                            numero=parts[0], imei=parts[1], identite=parts[2],
+                            numero=clean_phone(parts[0]), imei=parts[1], identite=parts[2],
                             occurrence=parts[3], first_use=parts[4], last_use=parts[5]
                         )
                         data_list.append(item)

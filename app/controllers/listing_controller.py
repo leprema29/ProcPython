@@ -71,7 +71,8 @@ def listing():
                 print(f"Error: {e}")
 
             # Generate PDF
-            pdf_gen = PDFGenerator(good_phone, date_requisition_string, operator=operateur)
+            pdf_gen = PDFGenerator(good_phone, date_requisition_string, operator=operateur,
+                                   date_debut=begin_date, date_fin=end_date)
             pdf_gen.generate()
 
             # Generate XLSX

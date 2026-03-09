@@ -41,7 +41,8 @@ def listing_imei():
             except Exception as e:
                 print(f"Error: {e}")
 
-            pdf_gen = PDFGenerator(good_phone, date_requisition_string, operator=operator)
+            pdf_gen = PDFGenerator(good_phone, date_requisition_string, operator=operator,
+                                   date_debut=begin_date, date_fin=end_date)
             pdf_gen.generate()
 
             if operator == "Mtn":

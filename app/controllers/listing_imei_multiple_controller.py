@@ -53,7 +53,8 @@ def listing_imei_multiple():
                     print(f"Error: {e}")
 
                 for imei in imeis:
-                    pdf_gen = PDFGenerator(imei, date_requisition_string, demandeur, operator)
+                    pdf_gen = PDFGenerator(imei, date_requisition_string, demandeur, operator,
+                                           date_debut=begin_date, date_fin=end_date)
                     pdf_gen.generate()
                     XlsxClass(imei, date_requisition_string, demandeur).generate()
 

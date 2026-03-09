@@ -74,7 +74,8 @@ def listing_multiple():
                 (nexttel_phones, "Nexttel", NexttelCsvToXlsxMultiple)
             ]:
                 for tel in phone_set:
-                    pdf_gen = PDFGenerator(tel, date_requisition_string, demandeur, operator)
+                    pdf_gen = PDFGenerator(tel, date_requisition_string, demandeur, operator,
+                                           date_debut=begin_date, date_fin=end_date)
                     pdf_gen.generate()
                     XlsxClass(tel, date_requisition_string, demandeur).generate()
                     all_files_name.extend([f"{tel}.xlsx", f"Requisition_{tel}.pdf"])
