@@ -22,8 +22,8 @@
             <td>{{ req.date_requisition.strftime('%Y-%m-%d %H:%M:%S') if req.date_requisition else '' }}</td>
             <td>
                 {% set date_str = req.date_requisition.strftime('%Y%m%d%H%M%S') if req.date_requisition else '' %}
-                <a href="{{ url_for('download.download_file', filepath=date_str + '/' + req.telephone + '/' + req.telephone + '.xlsx') }}">[XLSX]</a>
-                <a href="{{ url_for('download.download_file', filepath=date_str + '/' + req.telephone + '/Requisition_' + req.telephone + '.pdf') }}">[PDF]</a>
+                <a href="{{ url_for('download.download', file_path=date_str + '/' + req.telephone + '/' + req.telephone + '.xlsx') }}">[XLSX]</a>
+                <a href="{{ url_for('download.download', file_path=date_str + '/' + req.telephone + '/Requisition_' + req.telephone + '.pdf') }}">[PDF]</a>
             </td>
             <td>{{ 'Finish' if req.etat == 1 else 'Ongoing' }}</td>
             {% if allowed %}

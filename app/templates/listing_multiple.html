@@ -35,7 +35,7 @@
 <ul class="file-list">
     {% for doc in all_files_name %}
     <li>
-        <a href="{{ url_for('download.download_file', filepath=date_requisition_string + '/requisition/' + doc) }}">
+        <a href="{{ url_for('download.download', file_path=date_requisition_string + '/requisition/' + doc) }}">
             {% if doc.endswith('.pdf') %}[PDF]{% else %}[XLSX]{% endif %} {{ doc }}
         </a>
     </li>
