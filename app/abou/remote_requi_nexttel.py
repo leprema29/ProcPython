@@ -17,7 +17,7 @@ class RemoteRequiNEXTTEL:
         self.password = Variables.NEXTTEL_PASSWORD
 
     def remote_find_nexttel(self, numero, date_debut, date_fin, identification):
-        command = (f"sh /home/data/nexttel/operations/cdr/requisitionNexttel_Multiple_Optimized.sh "
+        command = (f"bash /home/data/nexttel/operations/cdr/requisitionNexttel_Multiple_Optimized.sh "
                    f"{numero} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
@@ -28,7 +28,7 @@ class RemoteRequiNEXTTEL:
         self.lire_fic_nexttel(numero)
 
     def remote_find_nexttel_multiple(self, numeros, date_debut, date_fin, identification):
-        command = (f"sh /home/data/nexttel/operations/cdr/requisitionNexttel_Multiple_Optimized.sh "
+        command = (f"bash /home/data/nexttel/operations/cdr/requisitionNexttel_Multiple_Optimized.sh "
                    f"{numeros} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
@@ -41,7 +41,7 @@ class RemoteRequiNEXTTEL:
             self.lire_fic_nexttel_multiple(numero)
 
     def remote_find_nexttel_imei_multiple(self, imeis, date_debut, date_fin, identification):
-        command = (f"sh /home/data/nexttel/operations/cdr/requisitionImeiNexttel_Multiple_Optimized.sh "
+        command = (f"bash /home/data/nexttel/operations/cdr/requisitionImeiNexttel_Multiple_Optimized.sh "
                    f"{imeis} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:

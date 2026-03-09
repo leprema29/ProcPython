@@ -19,7 +19,7 @@ class RemoteRequiMTN:
 
     def remote_find_mtn(self, numero, date_debut, date_fin, identification):
         """Execute remote shell script for MTN single number"""
-        command = (f"sh /home/data/mtn/operations/cdr/requisitionMTN_Multiple_Optimized.sh "
+        command = (f"bash /home/data/mtn/operations/cdr/requisitionMTN_Multiple_Optimized.sh "
                    f"{numero} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
@@ -33,7 +33,7 @@ class RemoteRequiMTN:
 
     def remote_find_mtn_multiple(self, numeros, date_debut, date_fin, identification):
         """Execute remote shell script for MTN multiple numbers"""
-        command = (f"sh /home/data/mtn/operations/cdr/requisitionMTN_Multiple_Optimized.sh "
+        command = (f"bash /home/data/mtn/operations/cdr/requisitionMTN_Multiple_Optimized.sh "
                    f"{numeros} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
@@ -48,7 +48,7 @@ class RemoteRequiMTN:
 
     def remote_find_mtn_imei_multiple(self, imeis, date_debut, date_fin, identification):
         """Execute remote shell script for MTN multiple IMEI"""
-        command = (f"sh /home/data/mtn/operations/cdr/requisitionImeiMTN_Multiple_Optimized.sh "
+        command = (f"bash /home/data/mtn/operations/cdr/requisitionImeiMTN_Multiple_Optimized.sh "
                    f"{imeis} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
