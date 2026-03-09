@@ -61,11 +61,13 @@ class CsvFileWriterMTNMultiple(CsvFileWriterMTN):
     def write_freq_cellule(file_path, data_list):
         with open(file_path, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(["Total", "Cellule", "00h-02h", "02h-04h", "04h-06h", "06h-08h",
+            writer.writerow(["Total", "Cellule", "Region", "Latitude", "Longitude",
+                           "00h-02h", "02h-04h", "04h-06h", "06h-08h",
                            "08h-10h", "10h-12h", "12h-14h", "14h-16h", "16h-18h", "18h-20h",
                            "20h-22h", "22h-24h"])
             for item in data_list:
-                writer.writerow([item.total, item.cellule, item.zero_deux, item.deux_quatre,
+                writer.writerow([item.total, item.cellule, item.region, item.latitude, item.longitude,
+                               item.zero_deux, item.deux_quatre,
                                item.quatre_six, item.six_huit, item.huit_dix, item.dix_douze,
                                item.douze_quatorze, item.quatorze_seize, item.seize_dixhuit,
                                item.dixhuit_vingt, item.vingt_vingtdeux, item.vingtdeux_vingtquatre])
@@ -75,11 +77,14 @@ class CsvFileWriterMTNMultiple(CsvFileWriterMTN):
         with open(file_path, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow(["Total", "Total Entrant", "Total Sortant", "Telephone", "Identite",
+                           "Date Naissance", "Numero CNI", "Date Exp CNI", "Quartier",
                            "00h-02h", "02h-04h", "04h-06h", "06h-08h", "08h-10h", "10h-12h",
                            "12h-14h", "14h-16h", "16h-18h", "18h-20h", "20h-22h", "22h-24h"])
             for item in data_list:
                 writer.writerow([item.total, item.total_entrant, item.total_sortant,
-                               item.telephone, item.identite, item.zero_deux, item.deux_quatre,
+                               item.telephone, item.identite, item.date_naissance,
+                               item.numero_cni, item.date_exp_cni, item.quartier,
+                               item.zero_deux, item.deux_quatre,
                                item.quatre_six, item.six_huit, item.huit_dix, item.dix_douze,
                                item.douze_quatorze, item.quatorze_seize, item.seize_dixhuit,
                                item.dixhuit_vingt, item.vingt_vingtdeux, item.vingtdeux_vingtquatre])
@@ -88,9 +93,12 @@ class CsvFileWriterMTNMultiple(CsvFileWriterMTN):
     def write_freq_duree_appel(file_path, data_list):
         with open(file_path, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(["Numero", "Identite", "Duree Appel", "Nombre Message"])
+            writer.writerow(["Numero", "Identite", "Date Naissance", "Numero CNI",
+                           "Date Exp CNI", "Quartier", "Duree Appel", "Nombre Message"])
             for item in data_list:
-                writer.writerow([item.numero, item.identite, item.duree_appel, item.nombre_message])
+                writer.writerow([item.numero, item.identite, item.date_naissance,
+                               item.numero_cni, item.date_exp_cni, item.quartier,
+                               item.duree_appel, item.nombre_message])
 
     @staticmethod
     def write_freq_imei(file_path, data_list):

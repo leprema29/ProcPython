@@ -124,14 +124,14 @@ class RemoteRequiMTN:
             for line in content.strip().split('\n'):
                 if line.strip():
                     parts = line.split(',')
-                    if len(parts) >= 6:
+                    if len(parts) >= 5:
                         item = Listing(
-                            numero_appelant=parts[0],
-                            localisation_numero_appelant=parts[1],
-                            imei_numero_appelant=parts[2],
-                            date_debut_appel=parts[3],
-                            duree_appel=parts[4],
-                            numero_appele=parts[5]
+                            date_debut_appel=parts[0],
+                            duree_appel=parts[1],
+                            numero_appelant=parts[2],
+                            numero_appele=parts[3],
+                            localisation_numero_appelant=parts[4],
+                            imei_numero_appelant=parts[9] if len(parts) > 9 else ""
                         )
                         data_list.append(item)
             csv_path = os.path.join(base_local, f"Requisition_Listing_{numero}.csv")
@@ -147,11 +147,11 @@ class RemoteRequiMTN:
             for line in content.strip().split('\n'):
                 if line.strip():
                     parts = line.split(',')
-                    if len(parts) >= 7:
+                    if len(parts) >= 6:
                         item = IdentificationMTN(
-                            numero=parts[0], nom_prenom=parts[1], date_naissance=parts[2],
-                            numero_cni=parts[3], date_exp_cni=parts[4],
-                            quartier=parts[5], nationalite=parts[6]
+                            numero=parts[0], numero_cni=parts[1], nom_prenom=parts[2],
+                            date_naissance=parts[3], date_exp_cni=parts[4],
+                            quartier=parts[5], nationalite=parts[6] if len(parts) > 6 else ""
                         )
                         data_list.append(item)
             csv_path = os.path.join(base_local, f"IdentificationAbonnees_{numero}.csv")
@@ -206,15 +206,16 @@ class RemoteRequiMTN:
             for line in content.strip().split('\n'):
                 if line.strip():
                     parts = line.split(',')
-                    if len(parts) >= 14:
+                    if len(parts) >= 17:
                         item = FreqCell(
                             total=parts[0], cellule=parts[1],
-                            zero_deux=parts[2], deux_quatre=parts[3],
-                            quatre_six=parts[4], six_huit=parts[5],
-                            huit_dix=parts[6], dix_douze=parts[7],
-                            douze_quatorze=parts[8], quatorze_seize=parts[9],
-                            seize_dixhuit=parts[10], dixhuit_vingt=parts[11],
-                            vingt_vingtdeux=parts[12], vingtdeux_vingtquatre=parts[13]
+                            region=parts[2], latitude=parts[3], longitude=parts[4],
+                            zero_deux=parts[5], deux_quatre=parts[6],
+                            quatre_six=parts[7], six_huit=parts[8],
+                            huit_dix=parts[9], dix_douze=parts[10],
+                            douze_quatorze=parts[11], quatorze_seize=parts[12],
+                            seize_dixhuit=parts[13], dixhuit_vingt=parts[14],
+                            vingt_vingtdeux=parts[15], vingtdeux_vingtquatre=parts[16]
                         )
                         data_list.append(item)
             csv_path = os.path.join(base_local, f"frequenceCellule_{numero}.csv")
@@ -230,16 +231,18 @@ class RemoteRequiMTN:
             for line in content.strip().split('\n'):
                 if line.strip():
                     parts = line.split(',')
-                    if len(parts) >= 17:
+                    if len(parts) >= 21:
                         item = FreqCorrespondant(
                             total=parts[0], total_entrant=parts[1], total_sortant=parts[2],
                             telephone=parts[3], identite=parts[4],
-                            zero_deux=parts[5], deux_quatre=parts[6],
-                            quatre_six=parts[7], six_huit=parts[8],
-                            huit_dix=parts[9], dix_douze=parts[10],
-                            douze_quatorze=parts[11], quatorze_seize=parts[12],
-                            seize_dixhuit=parts[13], dixhuit_vingt=parts[14],
-                            vingt_vingtdeux=parts[15], vingtdeux_vingtquatre=parts[16]
+                            date_naissance=parts[5], numero_cni=parts[6],
+                            date_exp_cni=parts[7], quartier=parts[8],
+                            zero_deux=parts[9], deux_quatre=parts[10],
+                            quatre_six=parts[11], six_huit=parts[12],
+                            huit_dix=parts[13], dix_douze=parts[14],
+                            douze_quatorze=parts[15], quatorze_seize=parts[16],
+                            seize_dixhuit=parts[17], dixhuit_vingt=parts[18],
+                            vingt_vingtdeux=parts[19], vingtdeux_vingtquatre=parts[20]
                         )
                         data_list.append(item)
             csv_path = os.path.join(base_local, f"frequenceCorrespondance_{numero}.csv")
@@ -255,10 +258,12 @@ class RemoteRequiMTN:
             for line in content.strip().split('\n'):
                 if line.strip():
                     parts = line.split(',')
-                    if len(parts) >= 4:
+                    if len(parts) >= 8:
                         item = FreqDureeAppel(
                             numero=parts[0], identite=parts[1],
-                            duree_appel=parts[2], nombre_message=parts[3]
+                            date_naissance=parts[2], numero_cni=parts[3],
+                            date_exp_cni=parts[4], quartier=parts[5],
+                            duree_appel=parts[6], nombre_message=parts[7]
                         )
                         data_list.append(item)
             csv_path = os.path.join(base_local, f"frequenceDureeAppel_{numero}.csv")

@@ -26,6 +26,9 @@ class ListingOrangeSMS:
 class FreqCell:
     total: str = ""
     cellule: str = ""
+    region: str = ""
+    latitude: str = ""
+    longitude: str = ""
     zero_deux: str = ""
     deux_quatre: str = ""
     quatre_six: str = ""
@@ -47,6 +50,10 @@ class FreqCorrespondant:
     total_sortant: str = ""
     telephone: str = ""
     identite: str = ""
+    date_naissance: str = ""
+    numero_cni: str = ""
+    date_exp_cni: str = ""
+    quartier: str = ""
     zero_deux: str = ""
     deux_quatre: str = ""
     quatre_six: str = ""
@@ -65,6 +72,10 @@ class FreqCorrespondant:
 class FreqDureeAppel:
     numero: str = ""
     identite: str = ""
+    date_naissance: str = ""
+    numero_cni: str = ""
+    date_exp_cni: str = ""
+    quartier: str = ""
     duree_appel: str = ""
     nombre_message: str = ""
 
