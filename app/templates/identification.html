@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Subscriber Identification</h2>
+<form method="POST">
+    <div class="form-group">
+        <label for="telephone">Telephone</label>
+        <input type="text" id="telephone" name="telephone" placeholder="6XXXXXXXX">
+    </div>
+    <div class="form-group">
+        <label for="idNumber">ID Number</label>
+        <input type="text" id="idNumber" name="idNumber">
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if all_subscribers %}
+<h3>Results ({{ all_subscribers|length }})</h3>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Telephone</th>
+            <th>Operator</th>
+            <th>Name</th>
+            <th>Birth Date</th>
+            <th>Address</th>
+            <th>ID Number</th>
+            <th>Expire Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sub in all_subscribers %}
+        <tr>
+            <td>{{ sub.telephone }}</td>
+            <td>{{ sub.operator }}</td>
+            <td>{{ sub.name }}</td>
+            <td>{{ sub.birthday.strftime('%Y-%m-%d') if sub.birthday else '' }}</td>
+            <td>{{ sub.address }}</td>
+            <td>{{ sub.cni }}</td>
+            <td>{{ sub.expire_date.strftime('%Y-%m-%d') if sub.expire_date else '' }}</td>
+            <td>{{ sub.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

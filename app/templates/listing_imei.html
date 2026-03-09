@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Listing - Single IMEI</h2>
+<form method="POST">
+    <div class="form-group">
+        <label for="telephone">IMEI</label>
+        <input type="text" id="telephone" name="telephone" required>
+    </div>
+    <div class="form-group">
+        <label for="operator">Operator</label>
+        <select id="operator" name="operator" required>
+            <option value="">Select Operator</option>
+            <option value="Orange">Orange</option>
+            <option value="Mtn">MTN</option>
+            <option value="Nexttel">Nexttel</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="beginDate">Begin Date</label>
+            <input type="date" id="beginDate" name="beginDate" required>
+        </div>
+        <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" name="endDate" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if all_files_name %}
+<h3>Download Files</h3>
+<ul class="file-list">
+    {% for doc in all_files_name %}
+    <li>
+        <a href="{{ url_for('download.download_file', filepath=date_requisition_string + '/' + good_phone + '/' + doc) }}">
+            {% if doc.endswith('.pdf') %}[PDF]{% else %}[XLSX]{% endif %} {{ doc }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

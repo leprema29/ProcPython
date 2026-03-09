@@ -1,0 +1,350 @@
+body {
+    background: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    min-width: 1000px;
+    position: relative;
+}
+
+.headWrapper {
+    height: 10px;
+    position: relative;
+}
+
+.footWrapper {
+    padding-top: 0px;
+    height: 40px;
+    background: linear-gradient(rgb(0, 45, 0), rgb(12, 101, 23)) repeat scroll 0% 0% transparent;
+    position: relative;
+    box-shadow: 0px 5px 5px rgb(102, 102, 102);
+}
+
+.head {
+    height: 100px;
+    margin: 0px auto;
+    padding-top: 1px;
+    position: relative;
+    width: 1024px;
+}
+
+.logo {
+    background-color: transparent;
+    width: 200px;
+    height: 100px;
+    float: right;
+    top: 0px;
+    left: 0px;
+}
+
+.titre {
+    font-family: Arial;
+    font-weight: normal;
+    color: #fff;
+    font-size: 30px;
+    position: absolute;
+    top: 40px;
+    left: 125px;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    z-index: 50;
+    margin-bottom: 24px;
+}
+
+#navigation {
+    padding: 0;
+    clear: both;
+    width: 858px;
+    height: 3px;
+    margin-top: 57px;
+    position: relative;
+    margin-left: 204px;
+}
+
+#navigation > li {
+    margin-right: 5px;
+    float: left;
+    list-style: none outside none;
+    display: block;
+    border: 2px solid transparent;
+    cursor: pointer;
+    z-index: 99;
+    position: relative;
+    border-radius: 15px;
+}
+
+ul.nav-main li {
+    list-style: none;
+    margin: 0;
+    border-right: none;
+}
+
+ul.nav-main {
+    position: relative;
+    z-index: 597;
+}
+
+ul.nav-main li:hover > ul {
+    visibility: visible;
+}
+
+ul.nav-main li:hover {
+    position: relative;
+    z-index: 599;
+    cursor: pointer;
+    background: linear-gradient(rgb(0, 100, 0), rgb(12, 101, 23)) repeat scroll 0% 0% transparent;
+    border: 1px solid darkgreen;
+}
+
+ul.nav-main li {
+    float: left;
+    display: block;
+    height: 51px;
+    color: white;
+    font: 16px Arial, Helvetica, sans-serif;
+}
+
+ul.nav-main li a {
+    display: block;
+    padding: 16px 16px 0 16px;
+    height: 35px;
+    color: white;
+    font: 16px Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
+ul.nav-main li a:hover {
+    color: #D6D6D6;
+}
+
+ul.nav-sub {
+    visibility: hidden;
+    position: absolute;
+    padding: 10px;
+    top: 51px;
+    left: -2px;
+    z-index: 598;
+    background: linear-gradient(rgb(0, 45, 0), rgb(12, 101, 23)) repeat scroll 0% 0% transparent;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+}
+
+ul.nav-sub li {
+    list-style: none;
+    display: block;
+    padding: 0;
+    height: 27px;
+    float: none;
+    width: 145px;
+    border-bottom: 1px solid #5a5a5a;
+    border-right: none;
+    background: none;
+}
+
+ul.nav-sub li a {
+    list-style: none;
+    display: block;
+    padding: 6px 5px 6px 5px;
+    height: 15px;
+    float: none;
+    width: 145px;
+    background: none;
+    font: 12px Arial, Helvetica, sans-serif;
+}
+
+.block {
+    clear: both;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-left: 180px;
+    margin-right: 120px;
+}
+
+.content {
+    margin-left: 0px;
+    margin-right: 0px;
+    min-height: 10px;
+    min-width: 640px;
+    max-width: 1490px;
+    overflow: hidden;
+    padding: 0px 6px;
+    position: relative;
+}
+
+h2 span {
+    padding: 2px 8px;
+    font-size: 14px;
+    color: #fff;
+}
+
+h2 {
+    color: red;
+    border: 2px solid rgb(0, 26, 48);
+    position: relative;
+    overflow: hidden;
+    padding: 0px;
+    border-radius: 8px;
+    box-shadow: 1px 2px 2px rgb(102, 102, 102);
+    background: linear-gradient(dimgray, gray);
+    text-align: left;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.formul {
+    padding: 10px 15px;
+}
+
+.formul input {
+    color: blue;
+    font-style: inherit;
+}
+
+.loginBox2 {
+    width: 550px;
+    padding-left: 300px;
+    margin: 1px auto;
+    height: 50px;
+    padding-top: 24px;
+}
+
+.loginBox label {
+    color: rgb(46, 46, 46);
+    margin-left: 10px;
+    margin-right: 5px;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.userInput, .passInput {
+    height: 20px;
+    border: 1px solid rgb(148, 149, 149);
+    width: 112px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: rgb(238, 238, 238);
+}
+
+.loginbtn {
+    margin-left: 10px;
+    display: block;
+    float: right;
+    cursor: pointer;
+    position: relative;
+    width: 80px;
+    height: 24px;
+    border: 1px solid rgb(227, 227, 227);
+    color: rgb(227, 227, 227);
+    padding-bottom: 3px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+h1 {
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+#renew {
+    background-color: white;
+    margin: 10px;
+}
+
+#renewTitle {
+    font-family: Times New Roman;
+    font-size: 20px;
+    color: white;
+    height: 23px;
+    background: linear-gradient(darkblue, blue) repeat scroll 0% 0% transparent;
+    margin: 10px 6px 6px 6px;
+    padding: 6px;
+}
+
+#renewContent {
+    float: left;
+    width: 800px;
+}
+
+#renewSlide {
+    float: right;
+    width: 170px;
+    vertical-align: 50%;
+}
+
+#titreBeginFormulaire {
+    font-family: Times New Roman;
+    font-size: 20px;
+    color: black;
+    height: 23px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th, table td {
+    border: 1px solid #555;
+    padding: 4px 8px;
+    text-align: left;
+}
+
+table th {
+    background: linear-gradient(dimgray, gray);
+}
+
+.flash-info {
+    color: #0f0;
+    padding: 5px;
+}
+
+.flash-error {
+    color: #f00;
+    padding: 5px;
+}
+
+a {
+    color: #7bf;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+input[type="submit"], button {
+    background: linear-gradient(rgb(0, 100, 0), rgb(12, 101, 23));
+    color: white;
+    border: 1px solid darkgreen;
+    padding: 6px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover, button:hover {
+    background: linear-gradient(rgb(12, 101, 23), rgb(0, 100, 0));
+}
+
+input[type="text"], input[type="password"], input[type="date"], select, textarea {
+    padding: 4px;
+    border: 1px solid #555;
+    background: #222;
+    color: white;
+}

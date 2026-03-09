@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Listing - Multiple Numbers</h2>
+<form method="POST">
+    <div class="form-group">
+        <label for="demandeurRequisition">Applicant</label>
+        <input type="text" id="demandeurRequisition" name="demandeurRequisition" value="{{ demandeur_requisition }}">
+    </div>
+    <div class="form-group">
+        <label for="numeroRequisition">Requisition Number</label>
+        <input type="text" id="numeroRequisition" name="numeroRequisition">
+    </div>
+    <div id="phone-fields">
+        <div class="form-group">
+            <label>Phone Numbers</label>
+            <input type="text" name="phones[]" placeholder="6XXXXXXXX">
+        </div>
+    </div>
+    <button type="button" onclick="addPhoneField()" class="btn btn-secondary">Add Field</button>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="beginDate">Begin Date</label>
+            <input type="date" id="beginDate" name="beginDate" required>
+        </div>
+        <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" name="endDate" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if all_files_name %}
+<h3>Download Files</h3>
+<ul class="file-list">
+    {% for doc in all_files_name %}
+    <li>
+        <a href="{{ url_for('download.download_file', filepath=date_requisition_string + '/requisition/' + doc) }}">
+            {% if doc.endswith('.pdf') %}[PDF]{% else %}[XLSX]{% endif %} {{ doc }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<script>
+function addPhoneField() {
+    var container = document.getElementById('phone-fields');
+    var div = document.createElement('div');
+    div.className = 'form-group';
+    div.innerHTML = '<input type="text" name="phones[]" placeholder="6XXXXXXXX">';
+    container.appendChild(div);
+}
+</script>
+{% endblock %}

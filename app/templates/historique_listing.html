@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>History of Listings</h2>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Telephone</th>
+            <th>Date</th>
+            <th>Files</th>
+            <th>State</th>
+            {% if allowed %}
+            <th>Action</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in all_requisitions %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ req.telephone }}</td>
+            <td>{{ req.date_requisition.strftime('%Y-%m-%d %H:%M:%S') if req.date_requisition else '' }}</td>
+            <td>
+                {% set date_str = req.date_requisition.strftime('%Y%m%d%H%M%S') if req.date_requisition else '' %}
+                <a href="{{ url_for('download.download_file', filepath=date_str + '/' + req.telephone + '/' + req.telephone + '.xlsx') }}">[XLSX]</a>
+                <a href="{{ url_for('download.download_file', filepath=date_str + '/' + req.telephone + '/Requisition_' + req.telephone + '.pdf') }}">[PDF]</a>
+            </td>
+            <td>{{ 'Finish' if req.etat == 1 else 'Ongoing' }}</td>
+            {% if allowed %}
+            <td>
+                <a href="{{ url_for('historique.delete_requisition', req_id=req.id) }}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?')">Remove</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

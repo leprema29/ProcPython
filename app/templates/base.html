@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRACKING SECURITY SYSTEM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="layout">
+        <div class="header">
+            <h1>TRACKING SECURITY SYSTEM</h1>
+            {% if current_user.is_authenticated %}
+            <div class="user-info">
+                <span>{{ current_user.name }}</span>
+                <a href="{{ url_for('session.logout') }}">Logout</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="content-wrapper">
+            {% if current_user.is_authenticated %}
+            <div class="sidebar">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('session.home') }}">Home</a></li>
+                        <li><a href="{{ url_for('identification.identification') }}">Identification</a></li>
+                        <li class="menu-group">
+                            <span>Listing Numbers</span>
+                            <ul>
+                                <li><a href="{{ url_for('listing.listing') }}">Single Number</a></li>
+                                <li><a href="{{ url_for('listing_multiple.listing_multiple') }}">Multiple Numbers</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-group">
+                            <span>Listing IMEI</span>
+                            <ul>
+                                <li><a href="{{ url_for('listing_imei.listing_imei') }}">Single IMEI</a></li>
+                                <li><a href="{{ url_for('listing_imei_multiple.listing_imei_multiple') }}">Multiple IMEI</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-group">
+                            <span>Others</span>
+                            <ul>
+                                <li><a href="{{ url_for('listing_momo.listing_momo') }}">MoMo</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ url_for('historique.historique_listing') }}">History of Listing</a></li>
+                        <li><a href="{{ url_for('session.change_password') }}">Change Password</a></li>
+                        {% if session.get('admin') %}
+                        <li><a href="{{ url_for('user.create_user') }}">Create User</a></li>
+                        <li><a href="{{ url_for('whitelist.whitelist') }}">Manage White List</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+            {% endif %}
+
+            <div class="main-content">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="messages">
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
