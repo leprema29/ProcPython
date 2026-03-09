@@ -1,3 +1,4 @@
+from urllib.parse import quote_plus
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -12,7 +13,7 @@ def create_app():
     from app.metier.variables import Variables
     app.config['SECRET_KEY'] = 'tracking-security-system-secret-key'
     app.config['SQLALCHEMY_DATABASE_URI'] = (
-        f'mysql+pymysql://{Variables.DB_USER}:{Variables.DB_PASSWORD}'
+        f'mysql+pymysql://{Variables.DB_USER}:{quote_plus(Variables.DB_PASSWORD)}'
         f'@{Variables.DB_HOST}:{Variables.DB_PORT}/{Variables.DB_NAME}'
     )
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
