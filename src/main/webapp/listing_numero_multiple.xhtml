@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <ui:composition template="layout.xhtml">
+                <ui:define name="contenu">
+                    <h:form id="listingFormMultiple">
+                        <center>
+                            <h1>
+                                <p:outputLabel value="Subscribers Listing"/>
+                            </h1>
+                        </center>
+                        <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;"> 
+                            <p:messages id="messages" showDetail="true"/>
+                            <!--<p:growl id="growl" showDetail="true" sticky="true" />-->
+                            <p:panelGrid id="p" columns="2" styleClass="ui-grid-row" layout="grid">
+                                <p:fragment>
+                                    <p:autoUpdate />
+                                    <p:panelGrid columns="2" styleClass="ui-grid-row">
+                                        <p:panelGrid columns="1" styleClass="ui-grid-row">
+                                            <p:outputLabel for="demandeur" value="Applicant"/>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="1" styleClass="ui-grid-row">
+                                            <p:inputText id="demandeur" value="#{listingMultipleMBean.demandeurRequisition}" size="48"/>
+                                        </p:panelGrid>                                        
+                                        <p:outputLabel value="Telephones"/>
+                                        <p:panelGrid columns="2" styleClass="ui-grid-row">
+                                            <c:forEach items="#{listingMultipleMBean.inputPhones}" var="loop">
+                                                <p:inputMask mask="999-999-999" value="#{loop}"/>
+                                            </c:forEach>
+                                        </p:panelGrid>
+                                        <p:outputLabel value=" "/>
+                                        <p:panelGrid columns="2" styleClass="ui-grid-row">
+                                            <p:commandLink value="Add field" actionListener="${listingMultipleMBean.addPhoneInputField()}"/>
+                                            <p:commandLink value="Reset fields" actionListener="${listingMultipleMBean.initField()}"/>
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+                                </p:fragment>
+                                <p:panelGrid columns="2" styleClass="ui-grid-row">
+                                    <p:outputLabel for="beginDateListing" value="Begin Date:"/>
+                                    <p:calendar id="beginDateListing" pattern="MM/dd/yyyy HH:mm:ss" value="#{listingMultipleMBean.beginDate}"  required="true"/>
+                                    <p:outputLabel for="endDateListing" value="End Date:"/>
+                                    <p:calendar id="endDateListing" pattern="MM/dd/yyyy HH:mm:ss" value="#{listingMultipleMBean.endDate}"  required="true"/>
+                                </p:panelGrid>
+                                <p:commandButton value="Submit" actionListener="#{listingMultipleMBean.findListing()}" update="files zip @form" global="true"/>
+                            </p:panelGrid>
+
+                        </p:ajaxStatus>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <p:graphicImage  library="images" name="processing.gif"/>
+                        </p:dialog>
+
+                        <p:separator/>
+                        <br/>
+                        <p:outputPanel id="zip">
+                        <!--<p:outputPanel id="zip" deferred="true" deferredMode="visible" rendered="#{listingMultipleMBean.allFilesName.size() > 0}">-->
+                            <center>
+                                <h1>
+                                    <p:outputLabel value="Downloading zip file"/>
+                                </h1>
+                            </center>
+                            <c:if test="#{listingMultipleMBean.allFilesName.size() > 0}">
+                                <a href="image/#{listingMultipleMBean.dateRequisitionString}/requisition.zip" title="requisition.zip">
+                                    <p:graphicImage library="images" name="zip.jpg" width="32" height="32"/>
+                                    <h:outputText value="requisition.zip" style="font-size: 14px;"/>
+                                </a>
+                            </c:if>
+                        </p:outputPanel>
+
+                        <center>
+                            <h1>
+                                <p:outputLabel value="Downloading files"/>
+                            </h1>
+                        </center>
+
+                        <p:dataList id="files" value="#{listingMultipleMBean.allFilesName}" var="doc" itemType="disc" paginator="true"
+                                    paginatorAlwaysVisible="false"
+                                    paginatorPosition="bottom"
+                                    rows="10"
+                                    emptyMessage="No documents found">
+                            <a href="image/#{listingMultipleMBean.dateRequisitionString}/#{listingMultipleMBean.getNumeroByFileName(doc)}/#{doc}" title="#{doc}">
+                                <p:graphicImage library="images" name="#{listingMBean.getTypeFichier(doc)}" width="32" height="32"/>
+                                <h:outputText value="#{doc}" style="font-size: 14px;"/>
+                            </a>
+                            <br/>
+                            <br/>
+                        </p:dataList>
+                    </h:form>
+                </ui:define>
+            </ui:composition>
+        </f:view>
+    </h:body>
+</html>

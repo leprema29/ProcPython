@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:form id="f" style="background-color: #000;">
+        <center>
+            <p:graphicImage library="images" name="Vista-Login_Manager.png" />
+        </center>
+        <br/>
+        <p:growl id="loginError" sticky="true" life="30" />
+        <p:panelGrid columns="2" styleClass="ui-grid-row">
+            <p:outputLabel value="Login:" for="login" />
+            <p:inputText id="login" value="#{sessionMBean.login}" title="Login" required="true" requiredMessage="Enter your login."/>
+            <p:outputLabel value="Password:" for="password" />
+            <p:password id="password" value="#{sessionMBean.password}" title="password" required="true" requiredMessage="Enter your password"/>
+            <p:outputLabel value="Key:" for="key" />
+            <p:password id="key" value="#{sessionMBean.key}" title="Key" required="true" requiredMessage="Enter your key"/>
+        </p:panelGrid>
+        <br/>
+        <p:captcha label="Captcha" />
+        <p:commandButton value="OK" update="growl" ajax="false" action="#{sessionMBean.authentication()}" oncomplete="handleLoginRequest(xhr, status, args)" />
+        <br/>
+    </h:form>
+</ui:composition>
+

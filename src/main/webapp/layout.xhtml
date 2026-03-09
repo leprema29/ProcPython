@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <!--<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>-->
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Security | CIRT</title>
+            </f:facet>
+            <script type="text/javascript">
+                function handleLoginRequest(xhr, status, args) {
+                    if (args.validationFailed || !args.loggedIn) {
+                        PF('dlg1').jq.effect("shake", {times: 5}, 100);
+                    }
+                    else {
+                        PF('dlg').hide();
+                        $('#loginLink').fadeOut();
+                    }
+                }
+            </script>
+        </h:head>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <h:outputScript library="javascript" name="script.js" />
+        <h:body>
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit position="north" size="115" styleClass="headerClass" >
+                    <div class="headWrapper">
+                        <div class="head">
+                            <div class="logo" style="background: url('${request.contextPath}/resources/images/logo antic.png')no-repeat scroll 16px 11px transparent;">
+                                <!--<div class="logo" style="background: url('${request.contextPath}/resources/images/bir.jpg')no-repeat scroll 16px 11px transparent;">-->
+                            <!--<div class="logo" style="background: url('${request.contextPath}/resources/images/sed.jpg')no-repeat scroll 16px 11px transparent;">-->
+                                <a title="DGSN">
+                                    DSGN
+                                </a>
+                            </div>
+                        </div>
+                        <div class="titre">
+                            TRACKING SECURITY SYSTEM
+                        </div>
+                    </div>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west">
+                    <h:form id="form">
+                        <p:tieredMenu >
+                            <p:menuitem value="Home" outcome="home"/>
+                            <p:menuitem value="Identication" outcome="identification" rendered="#{sessionMBean.isConnected()}"/>
+                            <p:menuitem value="Listing Numbers" outcome="listing_numero_multiple" rendered="#{sessionMBean.isConnected()}"/>
+                            <p:menuitem value="Listing IMEI " outcome="listing_imei_multiple" rendered="#{sessionMBean.isConnected()}"/>
+                            <p:menuitem value="Others Numbers " outcome="listing_autre_multiple" rendered="#{sessionMBean.isConnected()}"/>
+                            <p:menuitem value="History of Listing" outcome="historique_listing" rendered="#{sessionMBean.isConnected()}"/>
+                            <p:separator/>
+                            <p:menuitem value="Change password" outcome="change_password" rendered="#{sessionMBean.isConnected()}"/>
+                            <p:menuitem value="Manage White List" outcome="edjoeikvdwil24kdl" rendered="#{sessionMBean.isAdmin()}"/>
+                        </p:tieredMenu >
+                        <p:separator/>
+                        <h:outputLink value="javascript:void(0)" onclick="PF('dlg1').show();" title="login" rendered="#{!sessionMBean.isConnected()}">
+                            <p:graphicImage library="images" name="login-icon-button.png" />
+                        </h:outputLink>
+                        <br/>
+                        <p:commandLink action="#{sessionMBean.deconnexion()}" ajax="false" title="logout" rendered="#{sessionMBean.isConnected()}">
+                            <p:graphicImage library="images" name="logout.png" />
+                        </p:commandLink>
+                    </h:form>
+                    <h:form id="ff">
+                        <p:dialog id="dialog" styleClass="dialogClass" header="Login" widgetVar="dlg1" visible="#{!sessionMBean.isConnected()}"
+                                  resizable="false" showEffect="explode" hideEffect="bounce" width="400px"
+                                  closeOnEscape="true"
+                                  >
+                            <ui:include src="connexion.xhtml"/>
+                        </p:dialog>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <ui:insert name="contenu">
+                        <h2>Contenu</h2>
+                    </ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+

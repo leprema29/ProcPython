@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="cm.cirt_TrackingSecuritySystem_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>cm.cirt.calldatarecordmanagement.entities.Sessions</class>
+    <class>cm.cirt.calldatarecordmanagement.entities.Users</class>
+    <class>cm.cirt.calldatarecordmanagement.entities.Requisitions</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cdr_management_bir"/>-->
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cdr_management_dsp"/>-->
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cdr_management_sed"/>-->
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cdr_management_dgsn"/>
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cdr_management"/>-->
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <!--<property name="javax.persistence.jdbc.password" value=""/>-->
+      <property name="javax.persistence.jdbc.password" value="Djamna@2019"/>
+      <!--?zeroDateTimeBehavior=convertToNull-->
+      <!--<property name="javax.persistence.jdbc.password" value="r00tS3D2019!@#$"/>-->
+    </properties>
+  </persistence-unit>
+</persistence>

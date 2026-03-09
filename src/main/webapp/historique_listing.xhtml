@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <ui:composition template="layout.xhtml">
+                <ui:define name="contenu">
+                    <h:form id="historiqueForm">
+                        <center>
+                            <h1>
+                                <p:outputLabel value="Requisition history"/>
+                            </h1>
+                        </center>
+
+                        <p:dataTable id="history" var="requisition" value="#{historiqueListingMBean.allRequisitions}"
+                                     rows="20"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                            <p:column headerText="#">
+                                <h:outputText value="#{historiqueListingMBean.allRequisitions.indexOf(requisition) + 1}" />
+                            </p:column>
+                            <p:column headerText="Telephone" filterBy="#{requisition.telephone}" filterMatchMode="contains">
+                                <h:outputText value="#{requisition.telephone}" />
+                            </p:column>
+                            <p:column headerText="Date" sortBy="#{requisition.dateRequisition}">
+                                <h:outputText value="#{identificationMBean.formatDate(requisition.dateRequisition)}" />
+                            </p:column>
+                            <p:column headerText="User">
+                                <h:outputText value="#{requisition.user.name}" />
+                            </p:column>
+                            <p:column headerText="Files">
+                                <a href="image/#{historiqueListingMBean.formatDate(requisition.dateRequisition)}/requisition/#{requisition.telephone}.xlsx" title="#{requisition.telephone}">
+                                    <p:graphicImage library="images" name="excel.jpg" width="32" height="32"/>
+                                    <h:outputText value="#{requisition.telephone}" style="font-size: 14px;"/>
+                                </a>
+                                <br/>
+                                <a href="image/#{historiqueListingMBean.formatDate(requisition.dateRequisition)}/requisition/Requisition_#{requisition.telephone}.pdf" title="#{requisition.telephone}">
+                                    <p:graphicImage library="images" name="pdf.jpg" width="32" height="32"/>
+                                    <h:outputText value="#{requisition.telephone}" style="font-size: 14px;"/>
+                                </a>
+                            </p:column>
+                            <p:column headerText="State">
+                                <h:outputText value="#{historiqueListingMBean.getEtatRequisition(requisition.etat)}" />
+                            </p:column>
+                            <p:column headerText="Action">
+                                <p:commandButton value="Remove" actionListener="#{historiqueListingMBean.deleteRequisition(requisition.id)}" ajax="false" update="history historiqueForm @form" disabled="#{!sessionMBean.allowed}" rendered="#{sessionMBean.allowed}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </ui:define>
+            </ui:composition>
+        </f:view>
+    </h:body>
+</html>

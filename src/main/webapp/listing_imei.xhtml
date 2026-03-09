@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <ui:composition template="layout.xhtml">
+                <ui:define name="contenu">
+                    <h:form id="listingForm">
+                        <center>
+                            <h1>
+                                <p:outputLabel value="Subscribers Listing"/>
+                            </h1>
+                        </center>
+                        <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;"> 
+                            <!--<p:messages id="messages" showDetail="true" autoUpdate="true" />-->
+                            <p:panelGrid columns="2" styleClass="ui-grid-row" layout="grid">
+                                <p:panelGrid columns="2" styleClass="ui-grid-row">
+                                    <p:outputLabel for="imeiListing" value="IMEI:"/>
+                                    <p:inputText id="imeiListing"  value="#{listingImeiMBean.telephone}" required="true"/>
+                                    <p:outputLabel for="operator" value="Operator:"/>
+                                    <p:selectOneMenu id="operator" value="#{listingImeiMBean.operator}" style="width:125px">
+                                        <f:selectItem itemLabel="Select One" itemValue="" />
+                                        <f:selectItem itemLabel="Orange" itemValue="Orange" />
+                                        <f:selectItem itemLabel="MTN" itemValue="Mtn" />
+                                        <f:selectItem itemLabel="Nexttel" itemValue="Nexttel" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                                <p:panelGrid columns="2" styleClass="ui-grid-row">
+                                    <p:outputLabel for="beginDateListing" value="Begin Date:"/>
+                                    <p:calendar id="beginDateListing" pattern="MM/dd/yyyy HH:mm:ss" value="#{listingImeiMBean.beginDate}"  required="true"/>
+                                    <p:outputLabel for="endDateListing" value="End Date:"/>
+                                    <p:calendar id="endDateListing" pattern="MM/dd/yyyy HH:mm:ss" value="#{listingImeiMBean.endDate}"  required="true"/>
+                                </p:panelGrid>
+                                <p:commandButton value="Submit" actionListener="#{listingImeiMBean.findListing()}" update="files" global="true"/>
+                            </p:panelGrid>
+                            <f:facet name="start">
+                                <p:graphicImage library="images" name="ajax-loader.gif" style="position: absolute;"/>
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <p:graphicImage  library="images" name="processing.gif"/>
+                        </p:dialog>
+
+                        <p:separator/>
+                        <br/>
+
+                        <center>
+                            <h1>
+                                <p:outputLabel value="Downloading files"/>
+                            </h1>
+                        </center>
+                        <p:dataList id="files" value="#{listingImeiMBean.allFilesName}" var="doc" itemType="disc" paginator="true"
+                                    paginatorAlwaysVisible="false"
+                                    paginatorPosition="bottom"
+                                    rows="10"
+                                    emptyMessage="No documents found">
+                            <a href="image/#{listingImeiMBean.dateRequisitionString}/#{listingImeiMBean.goodPhone}/#{doc}" title="#{doc}">
+                                <p:graphicImage library="images" name="#{listingImeiMBean.getTypeFichier(doc)}" width="32" height="32"/>
+                                <h:outputText value="#{doc}" style="font-size: 14px;"/>
+                            </a>
+                            <br/>
+                            <br/>
+                        </p:dataList>
+                    </h:form>
+                </ui:define>
+            </ui:composition>
+        </f:view>
+    </h:body>
+</html>
