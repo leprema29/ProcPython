@@ -23,12 +23,18 @@ def create_ssh_client(host, user, password):
     return client
 
 
-def execute_remote_command(host, user, password, command):
+def execute_remote_command(host, user, password, command, timeout=600):
     """Execute a command on a remote host via SSH and return stdout"""
     client = create_ssh_client(host, user, password)
     try:
-        stdin, stdout, stderr = client.exec_command(command)
+        stdin, stdout, stderr = client.exec_command(command, timeout=timeout)
+        exit_status = stdout.channel.recv_exit_status()
         output = stdout.read().decode('utf-8', errors='replace')
+        err_output = stderr.read().decode('utf-8', errors='replace')
+        if err_output:
+            print(f"STDERR: {err_output}")
+        if exit_status != 0:
+            print(f"Command exited with status {exit_status}")
         return output
     finally:
         client.close()
