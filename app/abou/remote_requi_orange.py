@@ -17,7 +17,8 @@ class RemoteRequiORANGE:
         self.password = Variables.ORANGE_PASSWORD
 
     def remote_find_orange(self, numero, date_debut, date_fin, identification):
-        command = f"sh requisitionORANGE.sh {numero} {date_debut} {date_fin}"
+        command = (f"sh /home/data/orange/operations/cdr/requisitionOrange_Multiple_Optimized.sh "
+                   f"{numero} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
             output = execute_remote_command(self.host, self.user, self.password, command)
@@ -27,7 +28,8 @@ class RemoteRequiORANGE:
         self.lire_fic_orange(numero)
 
     def remote_find_orange_multiple(self, numeros, date_debut, date_fin, identification):
-        command = f"sh requisitionORANGE.sh {numeros} {date_debut} {date_fin}"
+        command = (f"sh /home/data/orange/operations/cdr/requisitionOrange_Multiple_Optimized.sh "
+                   f"{numeros} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
             output = execute_remote_command(self.host, self.user, self.password, command)
@@ -39,7 +41,8 @@ class RemoteRequiORANGE:
             self.lire_fic_orange_multiple(numero)
 
     def remote_find_orange_imei_multiple(self, imeis, date_debut, date_fin, identification):
-        command = f"sh requisitionORANGE_IMEI.sh {imeis} {date_debut} {date_fin}"
+        command = (f"sh /home/data/orange/operations/cdr/requisitionImeiOrange_Multiple_Optimized.sh "
+                   f"{imeis} {date_debut} {date_fin} {self.date_requisition}")
         print(f"Executing: {command}")
         try:
             output = execute_remote_command(self.host, self.user, self.password, command)
